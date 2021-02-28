@@ -1,46 +1,53 @@
 <?php
 session_start();
+
 include "./core/init.php";
 
-if (isset($_POST['login_email']) && isset($_POST['login_password'])) {
-    
-    function validate($data){
+if (isset($_POST['uname']) && isset($_POST['password'])) {
+
+    function validate($data)
+    {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
     }
-    $login_email = validate(($_POST['login_email']));
-    $login_password = validate(($_POST['login_password']));
 
-    if (empty($login_email)) {
-        header("Location: https://b3ns44dhost.local/starter_files/components/loginPage.php?error=User Name is required");
+    $uname = validate($_POST['uname']);
+    $pass = validate($_POST['password']);
+
+    if (empty($uname)) {
+        header("Location: index.php?error=User Name is required");
         exit();
-    } else if (empty($login_password)) {
-        header("Location: https://b3ns44dhost.local/starter_files/components/loginPage.php?error=Password is required");
+    } else if (empty($pass)) {
+        header("Location: index.php?error=Password is required");
         exit();
     } else {
-        $sql = "SELECT * FROM users WHERE email='$login_email' AND password='password'";
+        $sql = "SELECT * FROM users WHERE email='$uname' AND password='$pass'";
+
         $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            die($sql);
+        }
 
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
-            if ($row['login_email'] === $login_email & $row['password'] === $login_password) {
-                $_SESSION['login_username'] === $row['login_email'];
+            if ($row['email'] === $uname && $row['password'] === $pass) {
+                $_SESSION['email'] = $row['email'];
                 $_SESSION['name'] = $row['name'];
                 $_SESSION['id'] = $row['id'];
-                header("Location: contact.php");
+                header("Location: home.php");
                 exit();
             } else {
-                header("Location: https://b3ns44dhost.local/starter_files/components/loginPage.php?error=Incorect User name or password");
+                header("Location: index.php?error=Incorect User name or password");
                 exit();
             }
         } else {
-            header("Location: https://b3ns44dhost.local/starter_files/components/loginPage.php?error=Incorect User name or password");
+            header("Location: index.php?error=Incorect User name or password");
             exit();
         }
     }
 } else {
-    header("Location: https://b3ns44dhost.local/starter_files/components/loginPage.php");
+    header("Location: index.php");
     exit();
 }
