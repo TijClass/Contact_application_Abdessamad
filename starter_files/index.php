@@ -17,7 +17,12 @@
 
 <body>
     <?php
-    include('./components/contactList.php');
+    session_start();
+    if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
+        include('./components/contactList.php');
+    } else {
+        include('./components/loginPage.php');
+    }
     ?>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
