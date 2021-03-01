@@ -20,6 +20,8 @@
     session_start();
     if (isset($_SESSION['id']) && isset($_SESSION['email'])) {
         include('./components/contactList.php');
+        // include('./components/getdata.php');
+
     } else {
         include('./components/loginPage.php');
     }
