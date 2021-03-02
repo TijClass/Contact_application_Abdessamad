@@ -1,5 +1,5 @@
 <?php
-include '../core/init.php';
+include './core/init.php';
 // $result = mysqli_query($conn, "SELECT * FROM `contacts`");
 
 // if (mysqli_num_rows($result) > 0 ){
@@ -11,7 +11,7 @@ include '../core/init.php';
 //     echo 'No result found';
 // }
 
-echo 'Helllo';
+// echo 'Helllo';
 
 $sql = "SELECT * FROM `contacts`";
 $result = mysqli_query($conn, $sql);
