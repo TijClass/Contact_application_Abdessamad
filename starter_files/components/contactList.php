@@ -1,4 +1,9 @@
+<?php
+include './core/init.php';
+$sql = "SELECT * FROM `contacts`";
+$result = mysqli_query($conn, $sql);
 
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Hello <?php echo $_SESSION['name']; ?></a>
@@ -22,7 +27,7 @@
                 <span class="input-group-text" id="basic-addon1">
                     <i class="bi bi-search"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Search...." aria-label="Search...." aria-describedby="basic-addon1">
+                <input type="text" id="search" class="form-control" placeholder="Search...." aria-label="Search...." aria-describedby="basic-addon1">
             </div>
         </div>
         <div class="p-2 bd-highlight pt-5 pb-5">
@@ -43,7 +48,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form class="p-3" method="post" action="https://b3ns44dhost.local/Contact_application_Abdessamad/starter_files/add_person.php" role="form">
+                <form class="p-3" method="post" action="http://localhost/Contact_application_Abdessamad/starter_files/add_person.php" role="form">
                     <div class="form-group p-2">
                         <label for="firtName">First name</label>
                         <input type="text" class="form-control" name="firstname" id="firtName">
@@ -114,67 +119,29 @@
 
                                 </tr>
                             </thead>
-                            <tbody class="customtable">
-                                <tr>
-                                    <td>01</td>
-                                    <td>Bensaad</td>
-                                    <td>Abdessamad</td>
-                                    <td>bens@mail.com</td>
-                                    <td>Street 12KL</td>
-                                    <td>+212000000</td>
-                                    <td><em>Family</em></td>
-                                    <td><a href="#">Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>02</td>
-                                    <td>Bensaad</td>
-                                    <td>Abdessamad</td>
-                                    <td>bens@mail.com</td>
-                                    <td>Street 12KL</td>
-                                    <td>+212000000</td>
-                                    <td><em>Family</em></td>
-                                    <td><a href="#">Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>03</td>
-                                    <td>Bensaad</td>
-                                    <td>Abdessamad</td>
-                                    <td>bens@mail.com</td>
-                                    <td>Street 12KL</td>
-                                    <td>+212000000</td>
-                                    <td><em>Family</em></td>
-                                    <td><a href="#">Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>04</td>
-                                    <td>Bensaad</td>
-                                    <td>Abdessamad</td>
-                                    <td>bens@mail.com</td>
-                                    <td>Street 12KL</td>
-                                    <td>+212000000</td>
-                                    <td><em>Family</em></td>
-                                    <td><a href="#">Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>05</td>
-                                    <td>Bensaad</td>
-                                    <td>Abdessamad</td>
-                                    <td>bens@mail.com</td>
-                                    <td>Street 12KL</td>
-                                    <td>+212000000</td>
-                                    <td><em>Family</em></td>
-                                    <td><a href="#">Edit</a></td>
-                                </tr>
-                                <tr>
-                                    <td>06</td>
-                                    <td>Bensaad</td>
-                                    <td>Abdessamad</td>
-                                    <td>bens@mail.com</td>
-                                    <td>Street 12KL</td>
-                                    <td>+212000000</td>
-                                    <td><em>Family</em></td>
-                                    <td><a href="#">Edit</a></td>
-                                </tr>
+                            <tbody class="customtable" id="table">
+                                <?php
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                ?>
+                                        <tr>
+                                            <td><?php echo $row["id"]; ?></td>
+                                            <td><?php echo $row["first_name"]; ?></td>
+                                            <td><?php echo $row["last_name"]; ?></td>
+                                            <td><?php echo $row["email"]; ?></td>
+                                            <td><?php echo $row["address1"]; ?></td>
+                                            <td><?php echo $row["phone"]; ?></td>
+                                            <td><em><?php echo $row["group"]; ?></em></td>
+                                            <td><a href="#">Edit</a></td>
+                                        </tr>
+                                <?php
+
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                                mysqli_close($conn);
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -182,6 +149,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 
