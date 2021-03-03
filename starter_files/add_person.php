@@ -18,11 +18,9 @@ if (isset($_POST['submit'])) {
     if (mysqli_query($conn, $sql)) {
         header("Location: index.php?success=Information was submitted successfully!");
         exit();
-        // echo "<div style='color:#73AD21;text-align:center; padding: 7px'> Information was submitted successfully!</div>";
     } else {
-        header("Location: index.php?error=Error occured while submitting your information. Please try again");
+        header("Location: index.php?error=Error occurred while submitting your information. Please try again");
         exit();
-        // echo "<div style='color:red;text-align:center;padding: 7x'>Error occured while submitting your information. Please try again</div>" . $sql . "<br>" . mysqli_error($conn);
     }
 
     mysqli_close($conn);
