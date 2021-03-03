@@ -180,7 +180,7 @@ $result = mysqli_query($conn, $sql);
 <script>
     function removeME(id) {
         $.post({
-            url: "http://localhost/Contact_application_Abdessamad/starter_files/remove.php",
+            url: "../remove.php",
             data: {
                 id: id
             },
