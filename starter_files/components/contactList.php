@@ -124,7 +124,7 @@ $result = mysqli_query($conn, $sql);
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                 ?>
-                                        <tr>
+                                        <tr data-id="<?php echo $row["id"]; ?>">
                                             <td><?php echo $row["id"]; ?></td>
                                             <td><?php echo $row["first_name"]; ?></td>
                                             <td><?php echo $row["last_name"]; ?></td>
@@ -132,7 +132,9 @@ $result = mysqli_query($conn, $sql);
                                             <td><?php echo $row["address1"]; ?></td>
                                             <td><?php echo $row["phone"]; ?></td>
                                             <td><em><?php echo $row["group"]; ?></em></td>
-                                            <td><a href="#">Edit</a></td>
+                                            <td>
+                                                <i id="removeMeeBro" onclick="removeME('<?php echo $row["id"]; ?>')" class="fas fa-user-times" style="cursor: pointer;"></i>
+                                            </td>
                                         </tr>
                                 <?php
 
@@ -146,6 +148,7 @@ $result = mysqli_query($conn, $sql);
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -173,3 +176,22 @@ $result = mysqli_query($conn, $sql);
 
     </div>
 </div>
+
+<script>
+    function removeME(id) {
+        $.post({
+            url: "http://localhost/Contact_application_Abdessamad/starter_files/remove.php",
+            data: {
+                id: id
+            },
+            success: (response) => {
+                if (response) {
+                    $(`tr[data-id=${id}]`).fadeOut();
+                }
+            },
+            error: (error) => {
+                console.error(error);
+            },
+        });
+    }
+</script>
