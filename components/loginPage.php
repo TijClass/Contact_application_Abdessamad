@@ -14,7 +14,7 @@
                <div class="col-sm-6 form">
                    <!-- Login Form -->
                    <div class="login form-peice ">
-                       <form class="login-form" action="<?php "https://" . $_SERVER['HTTP_HOST'] . "/login.php"?>" method="post">
+                       <form class="login-form" action="../login.php" method="post">
                            <h2>Login Test</h2>
                            <div class="form-group">
                                <?php if (isset($_GET['error'])) { ?>
